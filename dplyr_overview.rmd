@@ -1,0 +1,173 @@
+---
+title: "Introduction Dplyr in R for Data Manipulation"
+author: Andy Pickering
+output: 
+  html_document: 
+    toc: no
+---
+
+
+
+
+# dplyr has 5 main verbs that each do 1 thing:
+
+- select
+- arrange
+- filter
+- mutate
+- summarise
+
+
+I'll use the *mtcars* dataset for examples.
+```{r}
+library(dplyr)
+head(mtcars)
+```
+
+# select 
+
+- 'select' selects columns from a data frame.
+- Same as SQL select
+
+```{r select}
+
+
+# select specified columns
+df <- select(mtcars,mpg,cyl)
+head(df,5)
+
+
+```
+
+```{r}
+# select everything *but* a column
+df <- select(mtcars,-cyl)
+head(df,5)
+
+```
+
+
+```{r}
+
+# select columns starting with x...
+df <- select(mtcars,starts_with('d'))
+head(df,5)
+```
+
+
+
+# arrange
+- Sorts rows by one or more specified variables
+- Similar to SQL *order by*
+
+```{r}
+
+df <- arrange(mtcars,mpg)
+head(df)
+
+```
+
+
+# filter
+- filters rows based on given critera
+- SQL equivalent would be *where ...*
+
+```{r}
+
+df <- filter(mtcars,mpg>30)
+head(df)
+```
+
+
+# mutate
+- Create new columns (or alter existing columns)
+
+```{r}
+
+df <- mutate(mtcars,mpkm = mpg*1.60934)
+df <- select(df,mpg,mpkm)
+head(df)
+```
+
+# summarise()
+- More commonly used with group-by (see below)
+
+```{r}
+
+df <- summarise(mtcars,avg_mpg=mean(mpg))
+df
+```
+
+
+
+# The pipe!
+
+- I'll be using the *pipe* operator in these examples. The pipe takes the object on the left side and inputs it as the 1st argument to the function on the right. 
+- This eliminates the need for intermediate objects and can make code easier to read.
+
+- Let's say we want to select only the mpg,cyl, and disp columns, then filter by cyl, then order by mpg.
+
+## without pipe
+```{r, eval=FALSE}
+
+# without pipe
+df <- select(mtcars,mpg,cyl,disp)
+df <- filter(df,cyl==8)
+df <- arrange(df,mpg)
+head(df)  
+
+```
+
+
+## with pipe
+```{r}
+
+df <- mtcars %>% select(mpg,cyl,disp) %>% filter(cyl==8) %>% arrange(mpg)
+head(df)
+
+```
+
+You can also pipe your results directly into ggplot! 
+```{r}
+library(ggplot2)
+mtcars %>% select(mpg,cyl,disp) %>%
+          filter(cyl==8) %>%
+          arrange(mpg) %>%
+          ggplot(aes(disp,mpg))+
+          geom_point()
+```
+
+
+
+# group by
+- Group by 1 or more variables, and perform operations (ie average/sum) on each group
+
+
+## Example: Compute the average mpg for each number of cyl
+
+```{r}
+mtcars %>% group_by(cyl) %>% summarise(avg=mean(mpg))
+```
+
+
+# Joins
+```{r}
+
+```
+
+
+# Resources
+
+<http://dplyr.tidyverse.org/>
+
+<https://www.datacamp.com/courses/dplyr-data-manipulation-r-tutorial>
+
+<https://www.datacamp.com/courses/joining-data-in-r-with-dplyr>
+
+
+# SessionInfo
+```{r}
+sessionInfo()
+```
+
+
