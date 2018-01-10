@@ -4,7 +4,7 @@ author: Andy Pickering
 date: Jan 10, 2018
 output: 
   html_document: 
-    toc: no
+    theme: yeti
 ---
 
 
