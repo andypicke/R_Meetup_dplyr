@@ -1,15 +1,24 @@
 ---
-title: "Introduction Dplyr in R for Data Manipulation"
+title: "Introduction To dplyr in R for Data Manipulation"
 author: Andy Pickering
+date: Jan 10, 2018
 output: 
   html_document: 
     toc: no
 ---
 
 
+# Introduction
+- This is an introduction to the dplyr package, as part of the Denver R Users Meetup on Jan 10, 2018
+- It is geared towards those getting started R
+- dplyr is a package for working with and manipulating data frames
 
+# dplyr is tidy
+- dplyr is part of the 'tidyverse', a set of packages designed to work with tidy data or help you make your data tidy
+- A very basic definition of 'tidy' is : your data is in a table or dataframe where each column is a variable, and each row is a separate observation.
 
-# dplyr has 5 main verbs that each do 1 thing:
+# The verbs!
+### dplyr has 5 main verbs that each do 1 thing:
 
 - select
 - arrange
@@ -20,11 +29,11 @@ output:
 
 I'll use the *mtcars* dataset for examples.
 ```{r}
-library(dplyr)
+suppressPackageStartupMessages(library(dplyr))
 head(mtcars)
 ```
 
-# select 
+## select 
 
 - 'select' selects columns from a data frame.
 - Same as SQL select
@@ -56,7 +65,7 @@ head(df,5)
 
 
 
-# arrange
+## arrange
 - Sorts rows by one or more specified variables
 - Similar to SQL *order by*
 
@@ -68,7 +77,7 @@ head(df)
 ```
 
 
-# filter
+## filter
 - filters rows based on given critera
 - SQL equivalent would be *where ...*
 
@@ -79,7 +88,7 @@ head(df)
 ```
 
 
-# mutate
+## mutate
 - Create new columns (or alter existing columns)
 
 ```{r}
@@ -89,12 +98,19 @@ df <- select(df,mpg,mpkm)
 head(df)
 ```
 
-# summarise()
+## summarise()
 - More commonly used with group-by (see below)
 
+#### Compute an average
 ```{r}
 
 df <- summarise(mtcars,avg_mpg=mean(mpg))
+df
+```
+
+#### Count the number of distinct values
+```{r}
+df <- summarise(mtcars,N_distinct_gears=n_distinct(gear))
 df
 ```
 
@@ -134,26 +150,25 @@ mtcars %>% select(mpg,cyl,disp) %>%
           filter(cyl==8) %>%
           arrange(mpg) %>%
           ggplot(aes(disp,mpg))+
-          geom_point()
+          geom_point()+
+          geom_smooth(method='lm')
 ```
 
 
 
-# group by
+## group by
 - Group by 1 or more variables, and perform operations (ie average/sum) on each group
 
 
-## Example: Compute the average mpg for each number of cyl
+#### Example: Compute the average mpg for each number of cyl
 
 ```{r}
 mtcars %>% group_by(cyl) %>% summarise(avg=mean(mpg))
 ```
 
 
-# Joins
-```{r}
-
-```
+## Joins
+- dplyr also does all the joins: inner,left,right,semi,anti...
 
 
 # Resources
