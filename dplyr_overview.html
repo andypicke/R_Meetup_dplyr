@@ -177,6 +177,24 @@ head(df,5)</code></pre>
 ## Datsun 710        22.8   4
 ## Hornet 4 Drive    21.4   6
 ## Hornet Sportabout 18.7   8</code></pre>
+<div id="with-base-r" class="section level4">
+<h4>With Base R</h4>
+<pre class="r"><code>head(mtcars[c('mpg','cyl')])</code></pre>
+<pre><code>##                    mpg cyl
+## Mazda RX4         21.0   6
+## Mazda RX4 Wag     21.0   6
+## Datsun 710        22.8   4
+## Hornet 4 Drive    21.4   6
+## Hornet Sportabout 18.7   8
+## Valiant           18.1   6</code></pre>
+<pre class="r"><code>head(mtcars[1:2])</code></pre>
+<pre><code>##                    mpg cyl
+## Mazda RX4         21.0   6
+## Mazda RX4 Wag     21.0   6
+## Datsun 710        22.8   4
+## Hornet 4 Drive    21.4   6
+## Hornet Sportabout 18.7   8
+## Valiant           18.1   6</code></pre>
 <pre class="r"><code># select everything *but* a column
 df &lt;- select(mtcars,-cyl)
 head(df,5)</code></pre>
@@ -195,6 +213,7 @@ head(df,5)</code></pre>
 ## Datsun 710         108 3.85
 ## Hornet 4 Drive     258 3.08
 ## Hornet Sportabout  360 3.15</code></pre>
+</div>
 </div>
 <div id="arrange" class="section level2">
 <h2>arrange</h2>
@@ -225,6 +244,15 @@ head(df)</code></pre>
 ## 2 30.4   4 75.7  52 4.93 1.615 18.52  1  1    4    2
 ## 3 33.9   4 71.1  65 4.22 1.835 19.90  1  1    4    1
 ## 4 30.4   4 95.1 113 3.77 1.513 16.90  1  1    5    2</code></pre>
+<div id="with-base-r-1" class="section level4">
+<h4>With Base R</h4>
+<pre class="r"><code>subset(mtcars,mpg&gt;30)</code></pre>
+<pre><code>##                 mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Fiat 128       32.4   4 78.7  66 4.08 2.200 19.47  1  1    4    1
+## Honda Civic    30.4   4 75.7  52 4.93 1.615 18.52  1  1    4    2
+## Toyota Corolla 33.9   4 71.1  65 4.22 1.835 19.90  1  1    4    1
+## Lotus Europa   30.4   4 95.1 113 3.77 1.513 16.90  1  1    5    2</code></pre>
+</div>
 </div>
 <div id="mutate" class="section level2">
 <h2>mutate</h2>
@@ -241,6 +269,25 @@ head(df)</code></pre>
 ## 4 21.4 34.43988
 ## 5 18.7 30.09466
 ## 6 18.1 29.12905</code></pre>
+<div id="with-base-r-2" class="section level3">
+<h3>With Base R</h3>
+<pre class="r"><code>mtcars$mpkm &lt;- mtcars$mpg*1.60934
+head(mtcars)</code></pre>
+<pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+##                       mpkm
+## Mazda RX4         33.79614
+## Mazda RX4 Wag     33.79614
+## Datsun 710        36.69295
+## Hornet 4 Drive    34.43988
+## Hornet Sportabout 30.09466
+## Valiant           29.12905</code></pre>
+</div>
 </div>
 <div id="summarise" class="section level2">
 <h2>summarise()</h2>

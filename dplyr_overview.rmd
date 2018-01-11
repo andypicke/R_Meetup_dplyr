@@ -48,6 +48,13 @@ head(df,5)
 
 ```
 
+#### With Base R
+```{r}
+head(mtcars[c('mpg','cyl')])
+head(mtcars[1:2])
+```
+
+
 ```{r}
 # select everything *but* a column
 df <- select(mtcars,-cyl)
@@ -87,6 +94,10 @@ df <- filter(mtcars,mpg>30)
 head(df)
 ```
 
+#### With Base R
+```{r}
+subset(mtcars,mpg>30)
+```
 
 ## mutate
 - Create new columns (or alter existing columns)
@@ -97,6 +108,14 @@ df <- mutate(mtcars,mpkm = mpg*1.60934)
 df <- select(df,mpg,mpkm)
 head(df)
 ```
+
+### With Base R
+```{r}
+mtcars$mpkm <- mtcars$mpg*1.60934
+head(mtcars)
+```
+
+
 
 ## summarise()
 - More commonly used with group-by (see below)
